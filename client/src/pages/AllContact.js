@@ -13,7 +13,8 @@ const AllContact = () => {
   const [contacts, setContacts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-  useEffect(async () => {
+  useEffect(() => {
+    const fetchData = async () => {
     setLoading(true);
     try {
       const res = await fetch(`http://localhost:8000/api/mycontacts`, {
@@ -33,6 +34,8 @@ const AllContact = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+  fetchData()
   }, []);
 
   const deleteContact = async (id) => {
@@ -80,7 +83,7 @@ const AllContact = () => {
           <Spinner splash="Loading Contacts..." />
         ) : (
           <>
-            {contacts.length == 0 ? (
+            {contacts.length === 0 ? (
               <h3>No contacts created yet</h3>
             ) : (
               <>

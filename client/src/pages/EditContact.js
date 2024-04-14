@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
-import AuthContext from "../context/AuthContext";
+// import AuthContext from "../context/AuthContext";
 import ToastContext from "../context/ToastContext";
 
 const EditContact = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
   const { toast } = useContext(ToastContext);
 
   const [userDetails, setUserDetails] = useState({
@@ -47,8 +47,8 @@ const EditContact = () => {
     }
   };
 
-  useEffect(async () => {
-    setLoading(true);
+  useEffect(() => {
+    const fetchData = async () => {
     try {
       const res = await fetch(`http://localhost:8000/api/contact/${id}`, {
         method: "GET",
@@ -67,7 +67,9 @@ const EditContact = () => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  };
+  fetchData(); // Invoke the fetchData function
+  }, [id]);
 
   return (
     <>

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import ToastContext from "../context/ToastContext";
 
-const Navbar = ({ title = "CMS" }) => {
+const Navbar = ({ title = "AUN ALERT SYSTEM" }) => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
   const { toast } = useContext(ToastContext);
@@ -12,7 +12,7 @@ const Navbar = ({ title = "CMS" }) => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container-fluid">
         <Link to="/">
-          <a className="navbar-brand">{title}</a>
+          <a className="navbar-brand" href="/">{title}</a>
         </Link>
 
         <button
@@ -24,6 +24,7 @@ const Navbar = ({ title = "CMS" }) => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
+          
           <span className="navbar-toggler-icon"></span>
         </button>
 
@@ -33,12 +34,12 @@ const Navbar = ({ title = "CMS" }) => {
               <>
                 <li className="nav-item">
                   <Link to="/mycontacts">
-                    <a className="nav-link">All Contacts</a>
+                    <a className="nav-link" href="/mycontacts">All Contacts</a>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/create">
-                    <a className="nav-link">Create</a>
+                    <a className="nav-link" href="/create">Create</a>
                   </Link>
                 </li>
                 <li
@@ -57,12 +58,12 @@ const Navbar = ({ title = "CMS" }) => {
               <>
                 <li className="nav-item">
                   <Link to="/login">
-                    <a className="nav-link">Login</a>
+                    <a className="nav-link"href="/login">Login</a>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/register">
-                    <a className="nav-link">Register</a>
+                    <a className="nav-link" href="/register">Register</a>
                   </Link>
                 </li>
               </>

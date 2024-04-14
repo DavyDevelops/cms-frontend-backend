@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
+// import AuthContext from "../context/AuthContext";
 import ToastContext from "../context/ToastContext";
 
 const CreateContact = () => {
-  const { user } = useContext(AuthContext);
+  /**  const { user } = useContext(AuthContext);*/
   const { toast } = useContext(ToastContext);
 
   const [userDetails, setUserDetails] = useState({
@@ -14,6 +14,7 @@ const CreateContact = () => {
     phone: "",
   });
   const navigate = useNavigate();
+  navigate()//this wasnt here before
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -103,7 +104,7 @@ const CreateContact = () => {
             name="phone"
             value={userDetails.phone}
             onChange={handleInputChange}
-            placeholder="+977 987654321"
+            placeholder="977 987654321"
             required
           />
         </div>

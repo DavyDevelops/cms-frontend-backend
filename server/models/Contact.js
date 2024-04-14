@@ -26,12 +26,20 @@ const ContactSchema = new mongoose.Schema({
 
 const Contact = new mongoose.model("Contact", ContactSchema);
 
+// const validateContact = (data) => {
+//   const schema = Joi.object({
+//     name: Joi.string().min(4).max(50).required(),
+//     address: Joi.string().min(4).max(100).required(),
+//     email: Joi.string().email().required(),
+//     phone: Joi.number().min(9).max(10000000000).required(),
+//   });
+
 const validateContact = (data) => {
   const schema = Joi.object({
     name: Joi.string().min(4).max(50).required(),
     address: Joi.string().min(4).max(100).required(),
     email: Joi.string().email().required(),
-    phone: Joi.number().min(7).max(10000000000).required(),
+    phone: Joi.number().min(2340000000000).max(2349999999999).required(), // Adjusted for Nigerian phone numbers with country code 234
   });
 
   return schema.validate(data);

@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+// import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ToastContext from "./ToastContext";
 
@@ -12,41 +12,80 @@ export const AuthContextProvider = ({ children }) => {
   const location = useLocation();
 
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
-  useEffect(() => {
-    checkUserLoggedIn();
-  }, []);
+
 
   // check if the user is logged in.
-  const checkUserLoggedIn = async () => {
-    try {
-      const res = await fetch(`http://localhost:8000/api/me`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      const result = await res.json();
-      if (!result.error) {
-        if (
-          location.pathname === "/login" ||
-          location.pathname === "/register"
-        ) {
-          setTimeout(() => {
-            navigate("/", { replace: true });
-          }, 500);
+  // const checkUserLoggedIn = async () => {
+  //   try {
+  //     const res = await fetch(`http://localhost:8000/api/me`, {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     });
+  //     const result = await res.json();
+  //     if (!result.error) {
+  //       if (
+  //         location.pathname === "/login" ||
+  //         location.pathname === "/register"
+  //       ) {
+  //         setTimeout(() => {
+  //           navigate("/", { replace: true });
+  //         }, 500);
+  //       } else {
+  //         navigate(location.pathname ? location.pathname : "/");
+  //       }
+  //       setUser(result);
+  //     } else {
+  //       navigate("/login", { replace: true });
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   checkUserLoggedIn();
+  // }, [checkUserLoggedIn]);
+
+  useEffect(() => {
+    // check if the user is logged in.
+    const checkUserLoggedIn = async () => {
+      try {
+        const res = await fetch(`http://localhost:8000/api/me`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        const result = await res.json();
+        if (!result.error) {
+          if (
+            location.pathname === "/login" ||
+            location.pathname === "/register"
+          ) {
+            setTimeout(() => {
+              navigate("/", { replace: true });
+            }, 500);
+          } else {
+            navigate(location.pathname ? location.pathname : "/");
+          }
+          setUser(result);
         } else {
-          navigate(location.pathname ? location.pathname : "/");
+          navigate("/login", { replace: true });
         }
-        setUser(result);
-      } else {
-        navigate("/login", { replace: true });
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    };
+  
+    checkUserLoggedIn();
+  
+  }, [navigate, setUser, location.pathname]);
+  
+
 
   // login request.
   const loginUser = async (userData) => {
