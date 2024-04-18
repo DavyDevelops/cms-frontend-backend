@@ -104,7 +104,7 @@ const CreateContact = () => {
             name="phone"
             value={userDetails.phone}
             onChange={handleInputChange}
-            placeholder="977 987654321"
+            placeholder="070xxxxxxxx"
             required
           />
         </div>

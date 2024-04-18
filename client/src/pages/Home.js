@@ -17,6 +17,10 @@ const Home = () => {
         <a className="btn btn-info" href="/create" role="button">
           Add Contacts
         </a>
+        <br></br>
+        <a className="btn btn-info" href="/alerts" role="button">
+          Send An Alert
+        </a>
       </div>
     </>
   );

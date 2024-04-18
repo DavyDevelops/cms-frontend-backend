@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 
 const auth = require("./middlewares/auth");
 
+const messages = require("./message")
 const app = express();
 
 // middlewares

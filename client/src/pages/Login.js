@@ -19,15 +19,25 @@ const Login = () => {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!credentials.email || !credentials.password) {
-      toast.error("please enter all the required fields!");
+      toast.error("Please enter all the required fields!");
       return;
     }
 
-    loginUser(credentials);
+    try {
+      const user = await loginUser(credentials);
+      
+      // Check if loginUser returned a user object
+      if (user) {
+        // Store the user object in localStorage
+        localStorage.setItem("user", JSON.stringify(user));
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
 
   return (

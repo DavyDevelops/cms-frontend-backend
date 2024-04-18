@@ -9,20 +9,23 @@ import Register from "./pages/Register";
 import CreateContact from "./pages/CreateContact";
 import AllContact from "./pages/AllContact";
 import EditContact from "./pages/EditContact";
+import MessagingComponent from "./pages/SendMessages";
+
 
 const App = () => {
   return (
     <ToastContextProvider>
       <AuthContextProvider>
         <Layout>
-          <Switch>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/create" element={<CreateContact />} />
-            <Route path="/mycontacts" element={<AllContact />} />
-            <Route path="/edit/:id" element={<EditContact />} />
-          </Switch>
+        <Switch>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/create" element={<CreateContact />} />
+              <Route path="/mycontacts" element={<AllContact />} />
+              <Route path="/edit/:id" element={<EditContact />} />
+              <Route path="/alerts" element={<MessagingComponent />} />
+            </Switch>
         </Layout>
       </AuthContextProvider>
     </ToastContextProvider>
