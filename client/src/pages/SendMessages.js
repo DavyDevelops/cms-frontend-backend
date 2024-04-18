@@ -46,7 +46,8 @@ const MessagingComponent = () => {
         return;
       }
   
-      await axios.post(`http://localhost:5000/api/messages/${user._id}`, {
+      await axios.post(`http://localhost:5000/send-message`, {
+        userId: user._id,
         content: newMessage,
         chatId: currentChatId, // Add the chatId to the message
       }, {
