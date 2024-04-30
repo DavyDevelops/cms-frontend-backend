@@ -1,13 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
+import requests from 'requests'; // Import requests library
 import axios from 'axios';
+
+
 import AuthContext from "../context/AuthContext";
 
 const MessagingComponent = () => {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [newMessage, setNewMessage] = useState(''); // State to handle new message input
-  const { user } = useContext(AuthContext);
+  const { user, isLoading: isUserLoading } = useContext(AuthContext);
   const [currentChatId, setCurrentChatId] = useState(null);
+
 
   const fetchMessages = async () => {
     try {
@@ -16,14 +20,14 @@ const MessagingComponent = () => {
         setIsLoading(false); // Set isLoading to false to handle the case where user is not found
         return;
       }
-
+  
       // Fetch messages associated with the user from MongoDB
       const response = await axios.get(`http://localhost:5000/api/messages/${user._id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`, // Use token from AuthContext
         },
       });
-
+  
       // Set messages state with fetched messages
       setMessages(response.data.messages);
       setIsLoading(false);
@@ -34,8 +38,10 @@ const MessagingComponent = () => {
   };
 
   useEffect(() => {
-    fetchMessages();
-  }, [user, fetchMessages]); // Fetch messages whenever user changes
+    if (!isUserLoading && user) {
+      fetchMessages();
+    }
+  }, [user, isUserLoading]); // Fetch messages whenever user changes or isUserLoading changes
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -63,6 +69,7 @@ const MessagingComponent = () => {
     }
   };
   
+  
 
   return (
     <div>
@@ -70,7 +77,7 @@ const MessagingComponent = () => {
       {isLoading ? (
         <p>Loading messages...</p>
       ) : messages.length === 0 ? (
-        <p></p>
+        <p>No previous messages.</p>
       ) : (
         <ul>
           {messages.map((message, index) => (
@@ -96,3 +103,4 @@ const MessagingComponent = () => {
 };
 
 export default MessagingComponent;
+

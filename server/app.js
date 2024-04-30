@@ -1,3 +1,4 @@
+//app.js
 require("dotenv").config({ path: "./config/config.env" });
 const express = require("express");
 const morgan = require("morgan");
